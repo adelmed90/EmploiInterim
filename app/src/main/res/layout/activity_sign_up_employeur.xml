@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pagebkg"
+    tools:context=".activities.LoginActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:background="@drawable/txt_border">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Logo"
+                    android:textSize="30sp"
+                    android:textAlignment="center"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/cercle_border">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:id="@+id/uploadImage"
+                        android:src="@drawable/uploadimg"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/profileTxt"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:background="@drawable/txt_border"
+                android:paddingStart="20dp"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/lavender"
+                android:drawableStart="@drawable/company"
+                android:drawablePadding="16dp"
+                android:hint="nom de l'entreprise"/>
+
+            <EditText
+                android:id="@+id/phoneTxt"
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:background="@drawable/txt_border"
+                android:paddingStart="20dp"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/lavender"
+                android:drawableStart="@drawable/phone"
+                android:drawablePadding="16dp"
+
+                android:inputType="phone"
+                android:hint="numéro de téléphone"/>
+
+            <EditText
+                android:id="@+id/adresseTxt"
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:background="@drawable/txt_border"
+                android:paddingStart="20dp"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/lavender"
+                android:drawableStart="@drawable/location"
+                android:drawablePadding="16dp"
+
+                android:hint="ville"/>
+
+            <EditText
+                android:id="@+id/websiteTxt"
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:background="@drawable/txt_border"
+                android:paddingStart="20dp"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/lavender"
+                android:drawableStart="@drawable/website"
+                android:drawablePadding="16dp"
+
+                android:inputType="textUri"
+                android:hint="site web"/>
+            <EditText
+                android:id="@+id/linkedinTxt"
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:background="@drawable/txt_border"
+                android:paddingStart="20dp"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/lavender"
+                android:drawableStart="@drawable/linkedin"
+                android:drawablePadding="16dp"
+
+                android:hint="linkedIn"/>
+            <EditText
+                android:id="@+id/facebookTxt"
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:background="@drawable/txt_border"
+                android:paddingStart="20dp"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/lavender"
+                android:drawableStart="@drawable/facebook"
+                android:drawablePadding="16dp"
+
+                android:hint="facebook"/>
+
+            <EditText
+                android:id="@+id/emailTxt"
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:background="@drawable/txt_border"
+                android:paddingStart="20dp"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/lavender"
+                android:drawableStart="@drawable/email"
+                android:drawablePadding="16dp"
+
+                android:hint="Email"
+                android:inputType="textEmailAddress"/>
+
+            <EditText
+                android:id="@+id/passwordTxt"
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:background="@drawable/txt_border"
+                android:paddingStart="20dp"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/lavender"
+                android:drawableStart="@drawable/password"
+                android:drawablePadding="16dp"
+
+                android:hint="mot de passe"
+                android:inputType="textPassword"/>
+
+            <Button
+                android:id="@+id/inscrireBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/blue"
+                android:textSize="16sp"
+                android:text="s'inscrire" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="120dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="vous avez déjà un compte? "
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/connexionTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="Connectez-vous"
+                    android:textColor="@color/blue"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
