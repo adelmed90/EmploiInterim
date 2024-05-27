@@ -1,9 +1,12 @@
 package dz.mradel.emploiinterim.models;
 
-public class Emploi {
+import java.io.Serializable;
+import java.util.UUID;
 
-    private String dataTitle;
-    private String dataDesc;
+public class Emploi implements Serializable {
+
+    private String jobTitle;
+    private String jobDesc;
     private Employeur employeur;
     private String key;
 
@@ -11,16 +14,16 @@ public class Emploi {
         return key;
     }
 
-    public void setKey(String key) {
+    /*public void setKey(String key) {
         this.key = key;
+    }*/
+
+    public String getJobTitle() {
+        return jobTitle;
     }
 
-    public String getDataTitle() {
-        return dataTitle;
-    }
-
-    public String getDataDesc() {
-        return dataDesc;
+    public String getJobDesc() {
+        return jobDesc;
     }
 
     public Employeur getEmployeur() {
@@ -31,9 +34,10 @@ public class Emploi {
         this.employeur = employeur;
     }
 
-    public Emploi(String dataTitle, String dataDesc, Employeur employeur) {
-        this.dataTitle = dataTitle;
-        this.dataDesc = dataDesc;
+    public Emploi(String jobTitle, String jobDesc, Employeur employeur) {
+        this.key= UUID.randomUUID().toString();
+        this.jobTitle = jobTitle;
+        this.jobDesc = jobDesc;
         this.employeur=employeur;
     }
     public Emploi(){

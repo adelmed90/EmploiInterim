@@ -1,7 +1,6 @@
 package dz.mradel.emploiinterim.activities;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,11 +31,11 @@ import dz.mradel.emploiinterim.databinding.ActivitySignUpEmployeurBinding;
 import dz.mradel.emploiinterim.models.Employeur;
 
 public class SignUpEmployeurActivity extends AppCompatActivity {
-    ActivitySignUpEmployeurBinding binding;
-    FirebaseAuth auth;
-    FirebaseFirestore firestore;
-    Uri uri;
-    String imageURL;
+    private ActivitySignUpEmployeurBinding binding;
+    private FirebaseAuth auth;
+    private FirebaseFirestore firestore;
+    private Uri uri;
+    private String imageURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,13 +84,13 @@ public class SignUpEmployeurActivity extends AppCompatActivity {
                 String facebook = binding.linkedinTxt.getText().toString();
 
                 if (validateData(nomEntreprise, email, password, adresse)) {
-                    auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 saveData(nomEntreprise, email, password, adresse, telephone, siteweb, linkedin, facebook);
-                            }else {
-
+                            } else {
+                                Toast.makeText(SignUpEmployeurActivity.this, "Failed to register: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -139,13 +138,21 @@ public class SignUpEmployeurActivity extends AppCompatActivity {
         storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
                 Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                while (!uriTask.isComplete()) ;
-                Uri urlImage = uriTask.getResult();
-                imageURL = urlImage.toString();
-                uploadData(nomEntreprise, email, password, adresse, telephone, siteweb, linkedin, facebook, imageURL);
-                dialog.dismiss();
+                uriTask.addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Uri urlImage = task.getResult();
+                            imageURL = urlImage.toString();
+                            uploadData(nomEntreprise, email, password, adresse, telephone, siteweb, linkedin, facebook, imageURL);
+                            dialog.dismiss();
+                        } else {
+                            dialog.dismiss();
+                            Toast.makeText(SignUpEmployeurActivity.this, "Failed to upload image: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -163,7 +170,7 @@ public class SignUpEmployeurActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    startActivity(new Intent(SignUpEmployeurActivity.this, MenuEmployeurActivity.class));
+                    startActivity(new Intent(SignUpEmployeurActivity.this, MenuActivity.class));
                     finish();
                 } else {
                     Toast.makeText(SignUpEmployeurActivity.this, "Failed to register: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

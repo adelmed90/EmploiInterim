@@ -1,6 +1,8 @@
 package dz.mradel.emploiinterim.models;
 
-public class Employeur {
+import java.io.Serializable;
+
+public class Employeur implements Serializable {
     private String nomEntreprise,adresse,telephone, siteweb, linkedin, facebook , email, password, logo;
 
     public Employeur() {

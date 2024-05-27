@@ -3,6 +3,7 @@ package dz.mradel.emploiinterim.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,24 +20,27 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import dz.mradel.emploiinterim.activities.JobDetailForEmployeurActivity;
 import dz.mradel.emploiinterim.models.Emploi;
 import dz.mradel.emploiinterim.R;
 import dz.mradel.emploiinterim.activities.DetailActivity;
 
-public class EmployeurAdapter extends RecyclerView.Adapter<MyViewHolder> {
+public class ListOfJobsAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private Context context;
     private List<Emploi> dataList;
+    private String user;
 
-    public EmployeurAdapter(Context context, List<Emploi> dataList) {
+    public ListOfJobsAdapter(Context context, List<Emploi> dataList, String user) {
         this.context = context;
         this.dataList = dataList;
+        this.user=user;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_of_jobs_item, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -45,19 +49,25 @@ public class EmployeurAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         Glide.with(context).load(dataList.get(position).getEmployeur().getLogo()).into(holder.recImage);
         holder.recVille.setText(dataList.get(position).getEmployeur().getAdresse());
-        holder.recJobTitle.setText(dataList.get(position).getDataTitle());
+        holder.recJobTitle.setText(dataList.get(position).getJobTitle());
         holder.recEmpTitle.setText(dataList.get(position).getEmployeur().getNomEntreprise());
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra("Image", dataList.get(position).getEmployeur().getLogo()); // Pass user photo URL if available
-                intent.putExtra("Description", dataList.get(holder.getAdapterPosition()).getDataDesc());
-                intent.putExtra("Title", dataList.get(holder.getAdapterPosition()).getDataTitle());
-                intent.putExtra("Ville",dataList.get(position).getEmployeur().getAdresse());
-                intent.putExtra("Employeur",dataList.get(position).getEmployeur().getNomEntreprise());
-                intent.putExtra("Key", dataList.get(holder.getAdapterPosition()).getKey());
-                context.startActivity(intent);
+                if(user.equals("employeur")){
+                    Intent intent = new Intent(context, JobDetailForEmployeurActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putSerializable("emploi",dataList.get(position));
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }else {
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putSerializable("emploi",dataList.get(position));
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+
+                }
             }
         });
     }

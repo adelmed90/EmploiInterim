@@ -23,7 +23,7 @@ import java.util.List;
 import dz.mradel.emploiinterim.databinding.ActivityListOfJobsBinding;
 import dz.mradel.emploiinterim.models.Emploi;
 import dz.mradel.emploiinterim.R;
-import dz.mradel.emploiinterim.adapters.EmployeurAdapter;
+import dz.mradel.emploiinterim.adapters.ListOfJobsAdapter;
 
 public class ListOfJobsActivity extends AppCompatActivity {
 
@@ -32,7 +32,8 @@ public class ListOfJobsActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     ValueEventListener eventListener;
     List<Emploi> dataList;
-    EmployeurAdapter adapter;
+    ListOfJobsAdapter adapter;
+    String user="anonyme";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +52,24 @@ public class ListOfJobsActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
+        Bundle bundle = getIntent().getExtras();
+
+
+        if (bundle != null){
+            // from HomePage
+            binding.fab.setVisibility(View.GONE);
+            if(FirebaseAuth.getInstance().getCurrentUser()==null){
+                user="demandeur";
+            }
+
+        }else {
+            user="employeur";
+        }
+
         dataList = new ArrayList<>();
 
-        adapter = new EmployeurAdapter(ListOfJobsActivity.this, dataList);
+
+        adapter = new ListOfJobsAdapter(ListOfJobsActivity.this, dataList, user);
         binding.recyclerView.setAdapter(adapter);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Jobs list");
@@ -64,10 +80,38 @@ public class ListOfJobsActivity extends AppCompatActivity {
                 dataList.clear();
                 for (DataSnapshot itemSnapshot: snapshot.getChildren()){
                     Emploi emploi = itemSnapshot.getValue(Emploi.class);
+                    //emploi.setKey(itemSnapshot.getKey());
 
-                    emploi.setKey(itemSnapshot.getKey());
-                    if(emploi.getEmployeur().getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
-                        dataList.add(emploi);
+                    Bundle bundle = getIntent().getExtras();
+                    String motCle, ville;
+
+                    if (bundle != null){// from HomePage
+                        motCle=bundle.getString("motCle");
+                        ville=bundle.getString("ville");
+                        if(FirebaseAuth.getInstance().getCurrentUser()==null){
+                            if(emploi.getJobTitle().contains(motCle)&&emploi.getEmployeur().getAdresse().contains(ville)){
+                                dataList.add(emploi);
+                            }else {
+                                //Toast.makeText(ListOfJobsActivity.this, "no jobs", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }else {
+                            user="demandeur";
+                            if(emploi.getJobTitle().contains(motCle)&&emploi.getEmployeur().getAdresse().contains(ville)){
+                                dataList.add(emploi);
+                            }else {
+                                //Toast.makeText(ListOfJobsActivity.this, "no jobs", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                    }else { //from Menu
+                        user="employeur";
+                        if(emploi.getEmployeur().getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                            dataList.add(emploi);
+                        }else {
+                            //Toast.makeText(ListOfJobsActivity.this, "no jobs", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
                 adapter.notifyDataSetChanged();
@@ -105,7 +149,7 @@ public class ListOfJobsActivity extends AppCompatActivity {
     public void searchList(String text){
         ArrayList<Emploi> searchList = new ArrayList<>();
         for (Emploi emploi : dataList){
-            if (emploi.getDataTitle().toLowerCase().contains(text.toLowerCase())){
+            if (emploi.getJobTitle().toLowerCase().contains(text.toLowerCase())){
                 searchList.add(emploi);
             }
         }

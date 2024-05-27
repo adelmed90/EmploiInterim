@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/pagebkg"
-    tools:context=".activities.SignUpEmployeurActivity">
+    tools:context=".activities.SignUpDemandeurActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Logo"
+                    android:hint="Photo de profile"
                     android:textSize="30sp"
                     android:textAlignment="center"/>
 
@@ -67,9 +67,9 @@
                 android:paddingStart="20dp"
                 android:gravity="start|center_vertical"
                 android:textColor="@color/lavender"
-                android:drawableStart="@drawable/company"
+                android:drawableStart="@drawable/nom"
                 android:drawablePadding="16dp"
-                android:hint="nom de l'entreprise"/>
+                android:hint="NOM Prenom "/>
 
             <EditText
                 android:id="@+id/phoneTxt"
@@ -104,10 +104,10 @@
                 android:drawableStart="@drawable/location"
                 android:drawablePadding="16dp"
 
-                android:hint="ville"/>
+                android:hint="adresse"/>
 
             <EditText
-                android:id="@+id/websiteTxt"
+                android:id="@+id/nationalityTxt"
 
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -118,13 +118,14 @@
                 android:paddingStart="20dp"
                 android:gravity="start|center_vertical"
                 android:textColor="@color/lavender"
-                android:drawableStart="@drawable/website"
+                android:drawableStart="@drawable/passeport"
                 android:drawablePadding="16dp"
 
                 android:inputType="textUri"
-                android:hint="site web"/>
+                android:hint="nationalité"/>
+
             <EditText
-                android:id="@+id/linkedinTxt"
+                android:id="@+id/birthDayTxt"
 
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -135,12 +136,14 @@
                 android:paddingStart="20dp"
                 android:gravity="start|center_vertical"
                 android:textColor="@color/lavender"
-                android:drawableStart="@drawable/linkedin"
+                android:drawableStart="@drawable/anniversaire"
                 android:drawablePadding="16dp"
 
-                android:hint="linkedIn"/>
-            <EditText
-                android:id="@+id/facebookTxt"
+                android:hint="date de naissance"
+                android:inputType="date"/>
+
+            <TextView
+                android:id="@+id/resumeTxt"
 
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -151,10 +154,26 @@
                 android:paddingStart="20dp"
                 android:gravity="start|center_vertical"
                 android:textColor="@color/lavender"
-                android:drawableStart="@drawable/facebook"
+                android:drawableStart="@drawable/pdf"
                 android:drawablePadding="16dp"
 
-                android:hint="facebook"/>
+                android:hint="télécharger votre CV"/>
+
+            <EditText
+                android:id="@+id/commentTxt"
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:background="@drawable/txt_border"
+                android:paddingStart="20dp"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/lavender"
+                android:drawablePadding="16dp"
+
+                android:hint="commentaire"/>
 
             <EditText
                 android:id="@+id/emailTxt"

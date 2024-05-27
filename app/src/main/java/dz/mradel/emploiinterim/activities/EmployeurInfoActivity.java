@@ -66,6 +66,5 @@ public class EmployeurInfoActivity extends AppCompatActivity {
                 // Handle failure
             });
         }
-
     }
 }

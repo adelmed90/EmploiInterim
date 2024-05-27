@@ -53,11 +53,12 @@ public class NewJobOfferActivity extends AppCompatActivity {
             DocumentReference userDocRef = db.collection("employeurs").document(uid);
             userDocRef.get().addOnSuccessListener(documentSnapshot -> {
                 if (documentSnapshot.exists()) {
-                    String nomEntreprise = documentSnapshot.getString("nomEntreprise");
-                    String adresse = documentSnapshot.getString("adresse");
-                    String email= documentSnapshot.getString("email");
-                    String logo = documentSnapshot.getString("logo");
-                    Employeur employeur= new Employeur(nomEntreprise,adresse,email,logo);
+                    Employeur employeur=documentSnapshot.toObject(Employeur.class);
+                    //String nomEntreprise = documentSnapshot.getString("nomEntreprise");
+                    //String adresse = documentSnapshot.getString("adresse");
+                    //String email= documentSnapshot.getString("email");
+                    //String logo = documentSnapshot.getString("logo");
+                    //Employeur employeur= new Employeur(nomEntreprise,adresse,email,logo);
 
                     Emploi emploi = new Emploi(title, desc, employeur);
                     String currentDate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
